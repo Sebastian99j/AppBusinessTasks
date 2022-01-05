@@ -2,6 +2,7 @@ package com.appbusinesstasks.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.appbusinesstasks.core.data.repository.NetworkRepository
 import com.appbusinesstasks.core.data.repository.UserRepository
 import com.appbusinesstasks.core.db.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel
     @Inject constructor(
-        private val userRepository: UserRepository
+        private val userRepository: UserRepository,
+        private val networkRepository: NetworkRepository
     ): ViewModel() {
 
     private val _allUsers = MutableStateFlow<List<User>>(emptyList())
