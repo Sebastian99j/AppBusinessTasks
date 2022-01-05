@@ -23,12 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.appbusinesstasks.R
 
 @Composable
-fun SignInScreen(navController: NavController){
+fun SignInScreen(
+    navigateToMainScreen: () -> Unit
+){
     var username by remember {
         mutableStateOf("")
     }
@@ -114,7 +114,7 @@ fun SignInScreen(navController: NavController){
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = {
-                                navController.navigate("")
+                                navigateToMainScreen()
                             },
                             enabled = isFormValid,
                             modifier = Modifier.fillMaxWidth(),
@@ -144,5 +144,5 @@ fun SignInScreen(navController: NavController){
 @Composable
 @Preview
 fun SignInScreenPreview(){
-    SignInScreen(navController = rememberNavController())
+    SignInScreen(navigateToMainScreen = {})
 }
