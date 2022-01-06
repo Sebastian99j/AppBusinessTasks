@@ -21,10 +21,13 @@ class LoginViewModel
     fun authorize(name: String, password: String){
         val user = User(name = name, password = password)
         viewModelScope.launch {
-            val result = networkRepository.validateUser(user = user)
-            if (result.status == "ok"){
-                _goNextScreen.value = true
+            try {
+                val result = networkRepository.validateUser(user = user)
+                if (result.status == "ok"){
+                    _goNextScreen.value = true
+                }
             }
+            catch (e: Exception){e.printStackTrace()}
         }
     }
 }

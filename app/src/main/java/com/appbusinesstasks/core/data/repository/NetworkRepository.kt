@@ -1,12 +1,10 @@
 package com.appbusinesstasks.core.data.repository
 
-import com.appbusinesstasks.core.base.Either
-import com.appbusinesstasks.core.base.Failure
 import com.appbusinesstasks.core.data.models.api.EmployeeApi
 import com.appbusinesstasks.core.data.models.api.EnterpriseApi
 import com.appbusinesstasks.core.data.models.api.ResponseApi
 import com.appbusinesstasks.core.data.models.api.TaskApi
-import com.appbusinesstasks.core.data.models.source.NetworkRepositorySource
+import com.appbusinesstasks.core.data.source.NetworkRepositorySource
 import com.appbusinesstasks.core.data.service.NetworkService
 import com.appbusinesstasks.core.db.models.User
 import dagger.hilt.android.scopes.ViewModelScoped

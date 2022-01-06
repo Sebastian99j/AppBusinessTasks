@@ -1,4 +1,4 @@
-package com.appbusinesstasks.core.data.models.source
+package com.appbusinesstasks.core.data.source
 
 import com.appbusinesstasks.core.data.models.api.EmployeeApi
 import com.appbusinesstasks.core.data.models.api.EnterpriseApi
