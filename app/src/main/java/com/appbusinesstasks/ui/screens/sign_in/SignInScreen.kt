@@ -20,14 +20,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appbusinesstasks.R
 
 @Composable
 fun SignInScreen(
-    navigateToMainScreen: () -> Unit
+    navigateToMainScreen: () -> Unit,
+    loginViewModel: LoginViewModel
 ){
     var username by remember {
         mutableStateOf("")
@@ -39,7 +39,13 @@ fun SignInScreen(
         mutableStateOf(false)
     }
     val isFormValid by derivedStateOf {
-        username.isNotBlank() && password.length >= 7
+        username.isNotBlank() && password.length >= 5
+    }
+
+    val goNextPage by loginViewModel.goNextScreen.collectAsState()
+
+    if (goNextPage){
+        navigateToMainScreen()
     }
 
     Scaffold(
@@ -114,7 +120,7 @@ fun SignInScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         Button(
                             onClick = {
-                                navigateToMainScreen()
+                                loginViewModel.authorize(name = username, password = password)
                             },
                             enabled = isFormValid,
                             modifier = Modifier.fillMaxWidth(),
@@ -141,8 +147,8 @@ fun SignInScreen(
     }
 }
 
-@Composable
-@Preview
-fun SignInScreenPreview(){
-    SignInScreen(navigateToMainScreen = {})
-}
+//@Composable
+//@Preview
+//fun SignInScreenPreview(){
+//    SignInScreen(navigateToMainScreen = {})
+//}

@@ -11,7 +11,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MainScreen(navController: NavController){
+fun MainScreen(
+    navigateToProfileScreen: () -> Unit
+){
     Scaffold {
         Text(text = "MainScreen", fontWeight = FontWeight.Bold, fontSize = 32.sp, textAlign = TextAlign.Center)
     }
@@ -20,5 +22,5 @@ fun MainScreen(navController: NavController){
 @Composable
 @Preview
 fun ProfileScreenPreview() {
-    MainScreen(navController = rememberNavController())
+    MainScreen(navigateToProfileScreen = {})
 }

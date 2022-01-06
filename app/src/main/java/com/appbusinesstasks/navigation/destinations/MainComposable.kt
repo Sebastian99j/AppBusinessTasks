@@ -1,18 +1,18 @@
 package com.appbusinesstasks.navigation.destinations
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavType
-import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.appbusinesstasks.utils.Constants.LOGIN_SCREEN
+import com.google.accompanist.navigation.animation.composable
+import com.appbusinesstasks.ui.screens.main.MainScreen
 import com.appbusinesstasks.utils.Constants.MAIN_SCREEN
 
+@ExperimentalAnimationApi
 fun NavGraphBuilder.mainComposable(
     navigateToProfileScreen: () -> Unit
 ){
     composable(
         route = MAIN_SCREEN
     ){
-
+        MainScreen(navigateToProfileScreen = navigateToProfileScreen)
     }
 }

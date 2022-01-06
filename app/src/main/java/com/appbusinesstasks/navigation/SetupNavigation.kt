@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import com.appbusinesstasks.navigation.destinations.loginComposable
 import com.appbusinesstasks.navigation.destinations.mainComposable
 import com.appbusinesstasks.navigation.destinations.splashComposable
+import com.appbusinesstasks.ui.screens.sign_in.LoginViewModel
 import com.appbusinesstasks.utils.Constants.SPLASH_SCREEN
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
@@ -15,7 +16,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 @ExperimentalMaterialApi
 @Composable
 fun SetupNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    loginViewModel: LoginViewModel
 ){
     val screen = remember(navController) {
         Screens(navController = navController)
@@ -29,7 +31,8 @@ fun SetupNavigation(
             navigateToLoginScreen = screen.splash
         )
         loginComposable(
-            navigateToLoginScreen = screen.login
+            navigateToLoginScreen = screen.login,
+            loginViewModel = loginViewModel
         )
         mainComposable(
             navigateToProfileScreen = screen.main

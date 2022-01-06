@@ -22,12 +22,11 @@ class SharedViewModel
     private val _allUsers = MutableStateFlow<List<User>>(emptyList())
     val allUsers: StateFlow<List<User>> = _allUsers
 
-        fun getAllUsers(){
-            viewModelScope.launch {
-                userRepository.getAllUsers.collect {
-                    _allUsers.value = it
-                }
+    fun getAllUsers(){
+        viewModelScope.launch {
+            userRepository.getAllUsers.collect {
+                _allUsers.value = it
             }
         }
-
+    }
 }

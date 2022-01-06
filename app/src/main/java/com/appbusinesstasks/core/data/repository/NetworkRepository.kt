@@ -1,7 +1,10 @@
 package com.appbusinesstasks.core.data.repository
 
+import com.appbusinesstasks.core.base.Either
+import com.appbusinesstasks.core.base.Failure
 import com.appbusinesstasks.core.data.models.api.EmployeeApi
 import com.appbusinesstasks.core.data.models.api.EnterpriseApi
+import com.appbusinesstasks.core.data.models.api.ResponseApi
 import com.appbusinesstasks.core.data.models.api.TaskApi
 import com.appbusinesstasks.core.data.models.source.NetworkRepositorySource
 import com.appbusinesstasks.core.data.service.NetworkService
@@ -30,5 +33,9 @@ class NetworkRepository
 
     override suspend fun getEnterprises(): List<EnterpriseApi> {
         return networkService.getEnterpriseData(token = token)
+    }
+
+    override suspend fun validateUser(user: User): ResponseApi {
+        return networkService.authorization(user = user, token = token)
     }
 }
