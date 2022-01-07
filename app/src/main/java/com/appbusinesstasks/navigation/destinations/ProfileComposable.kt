@@ -1,26 +1,24 @@
 package com.appbusinesstasks.navigation.destinations
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.navigation.NavGraphBuilder
-import com.google.accompanist.navigation.animation.composable
-import com.appbusinesstasks.ui.screens.main.MainScreen
+import com.appbusinesstasks.ui.screens.profil.ProfileScreen
 import com.appbusinesstasks.ui.viewmodels.SharedViewModel
-import com.appbusinesstasks.utils.Constants.MAIN_SCREEN
+import com.appbusinesstasks.utils.Constants
+import com.google.accompanist.navigation.animation.composable
 
-@ExperimentalFoundationApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.mainComposable(
-    navigateToProfileScreen: () -> Unit,
+fun NavGraphBuilder.profileComposable(
     navigateToTaskScreen: () -> Unit,
+    navigateToMainScreen: () -> Unit,
     sharedViewModel: SharedViewModel
 ){
     composable(
-        route = MAIN_SCREEN
+        route = Constants.PROFILE_SCREEN
     ){
-        MainScreen(
-            navigateToProfileScreen = navigateToProfileScreen,
+        ProfileScreen(
             navigateToTaskScreen = navigateToTaskScreen,
+            navigateToMainScreen = navigateToMainScreen,
             sharedViewModel = sharedViewModel
         )
     }

@@ -1,24 +1,72 @@
 package com.appbusinesstasks.ui.screens.task
 
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.appbusinesstasks.R
+import com.appbusinesstasks.ui.theme.fabBackgroundColor
+import com.appbusinesstasks.ui.viewmodels.SharedViewModel
+import com.appbusinesstasks.utils.SearchAppBarState
 
+@ExperimentalMaterialApi
 @Composable
-fun TaskScreen(navController: NavController){
-    Scaffold {
-        Text(text = "TaskScreen", fontWeight = FontWeight.Bold, fontSize = 32.sp, textAlign = TextAlign.Center)
+fun TaskScreen(
+    navigateToDetailTaskScreen: (Int) -> Unit,
+    sharedViewModel: SharedViewModel,
+){
+    LaunchedEffect(key1 = true){
+        sharedViewModel.loadData()
     }
+
+    val listOfTasks = sharedViewModel.allTaskApi.collectAsState()
+    
+    val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
+    val searchTextState: String by sharedViewModel.searchTextState
+    val scaffoldState = rememberScaffoldState()
+
+    Scaffold(
+        modifier = Modifier.background(Color.Blue),
+        topBar = {
+            ListAppBar(
+                sharedViewModel = sharedViewModel,
+                searchAppBarState = searchAppBarState,
+                searchTextState = searchTextState
+            )
+        },
+        content = {
+            ListContent(
+                listOfTasks = listOfTasks.value,
+                navigateToTaskDetailScreen = navigateToDetailTaskScreen
+            )
+        },
+        floatingActionButton = {
+            ListFab(onFabClick = navigateToDetailTaskScreen)
+        }
+    )
 }
 
 @Composable
-@Preview
-fun ProfileScreenPreview() {
-    TaskScreen(navController = rememberNavController())
+fun ListFab(
+    onFabClick: (Int) -> Unit
+){
+    FloatingActionButton(
+        onClick = {
+            onFabClick(-1)
+        },
+        backgroundColor = MaterialTheme.colors.fabBackgroundColor
+    ) {
+        Icon(
+            imageVector = Icons.Filled.Add,
+            contentDescription = stringResource(id = R.string.add_button),
+            tint = Color.White
+        )
+    }
 }

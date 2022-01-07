@@ -12,4 +12,6 @@ interface NetworkRepositorySource {
     suspend fun getEmployees(): List<EmployeeApi>
     suspend fun getEnterprises(): List<EnterpriseApi>
     suspend fun validateUser(user: User): ResponseApi
+
+    suspend fun deleteTask(id: Long)
 }

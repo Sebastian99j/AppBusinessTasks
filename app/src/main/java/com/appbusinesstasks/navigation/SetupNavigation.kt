@@ -6,10 +6,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
-import com.appbusinesstasks.navigation.destinations.loginComposable
-import com.appbusinesstasks.navigation.destinations.mainComposable
-import com.appbusinesstasks.navigation.destinations.splashComposable
+import com.appbusinesstasks.navigation.destinations.*
 import com.appbusinesstasks.ui.screens.sign_in.LoginViewModel
+import com.appbusinesstasks.ui.viewmodels.SharedViewModel
 import com.appbusinesstasks.utils.Constants.SPLASH_SCREEN
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
@@ -19,7 +18,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 @Composable
 fun SetupNavigation(
     navController: NavHostController,
-    loginViewModel: LoginViewModel
+    loginViewModel: LoginViewModel,
+    sharedViewModel: SharedViewModel
 ){
     val screen = remember(navController) {
         Screens(navController = navController)
@@ -37,7 +37,24 @@ fun SetupNavigation(
             loginViewModel = loginViewModel
         )
         mainComposable(
-            navigateToProfileScreen = screen.main
+            navigateToProfileScreen = screen.main,
+            navigateToTaskScreen = screen.toTask,
+            sharedViewModel = sharedViewModel
+        )
+        profileComposable(
+            navigateToTaskScreen = screen.toTask,
+            navigateToMainScreen = screen.login,
+            sharedViewModel = sharedViewModel
+        )
+        taskComposable(
+            navigateToTaskDetailScreen = screen.task,
+            sharedViewModel = sharedViewModel
+        )
+        taskDetailComposable(
+            sharedViewModel = sharedViewModel,
+            navigateToProfileScreen = screen.main,
+            navigateToTaskScreen = screen.toTask,
+            navigateToMainScreen = screen.login
         )
     }
 }

@@ -5,10 +5,7 @@ import com.appbusinesstasks.core.data.models.api.EnterpriseApi
 import com.appbusinesstasks.core.data.models.api.ResponseApi
 import com.appbusinesstasks.core.data.models.api.TaskApi
 import com.appbusinesstasks.core.db.models.User
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface NetworkService {
     @GET("api/tasks")
@@ -36,4 +33,7 @@ interface NetworkService {
         @Header("Authorization") token: String,
         @Body user: User
     ): ResponseApi
+
+    @DELETE("/api/tasks/delete/{id}")
+    suspend fun deleteTask(@Path("id") id: String)
 }

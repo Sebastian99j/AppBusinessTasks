@@ -5,19 +5,13 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,7 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appbusinesstasks.R
+import com.appbusinesstasks.core.data.models.api.EmployeeApi
+import com.appbusinesstasks.core.data.models.api.EnterpriseApi
 import com.appbusinesstasks.ui.theme.*
+import com.appbusinesstasks.ui.viewmodels.SharedViewModel
 import com.appbusinesstasks.utils.BottomMenuContext
 import com.appbusinesstasks.utils.Feature
 import com.appbusinesstasks.utils.standardQuadFromTo
@@ -39,17 +36,26 @@ import java.time.format.DateTimeFormatter
 @ExperimentalFoundationApi
 @Composable
 fun MainScreen(
-    navigateToProfileScreen: () -> Unit
+    navigateToProfileScreen: () -> Unit,
+    navigateToTaskScreen: () -> Unit,
+    sharedViewModel: SharedViewModel
 ) {
+    LaunchedEffect(key1 = true){
+        sharedViewModel.loadData()
+    }
+
+    val employeeApi = sharedViewModel.employeeApi.collectAsState()
+    val enterpriseApi = sharedViewModel.enterpriseApi.collectAsState()
+
     Box(
         modifier = Modifier
             .background(DeepBlue)
             .fillMaxSize()
     ) {
         Column {
-            GreetingSection()
+            GreetingSection(employeeApi.value)
             ChipSection(chips = listOf("Main task", "Team", "Details"))
-            CurrentMeditation(enterprise = "VAG GMBH", localization = "Germany")
+            CurrentMeditation(enterprise = enterpriseApi.value)
             FeatureSection(
                 features = listOf(
                     Feature(
@@ -57,30 +63,36 @@ fun MainScreen(
                         R.drawable.ic_home,
                         BlueViolet1,
                         BlueViolet2,
-                        BlueViolet3
+                        BlueViolet3,
+                        {}
                     ),
                     Feature(
                         title = "Profile",
                         R.drawable.ic_profile,
                         LightGreen1,
                         LightGreen2,
-                        LightGreen3
+                        LightGreen3,
+                        navigateToProfileScreen
                     ),
                     Feature(
                         title = "Help",
                         R.drawable.ic_help,
                         OrangeYellow1,
                         OrangeYellow2,
-                        OrangeYellow3
+                        OrangeYellow3,
+                        navigateToTaskScreen
                     )
                 )
             )
         }
         BottomMenu(items = listOf(
             BottomMenuContext("Home", R.drawable.ic_home),
-            BottomMenuContext("Help", R.drawable.ic_help),
+            BottomMenuContext("Task", R.drawable.ic_task),
             BottomMenuContext("Profile", R.drawable.ic_profile),
-        ), modifier = Modifier.align(Alignment.BottomCenter))
+        ), modifier = Modifier.align(Alignment.BottomCenter),
+            navigateToMainScreen = {},
+            navigateToProfileScreen = navigateToProfileScreen,
+            navigateToTaskScreen = navigateToTaskScreen)
     }
 }
 
@@ -91,7 +103,10 @@ fun BottomMenu(
     activeHighlightColor: Color = ButtonBlue,
     activeTextColor: Color = Color.White,
     inactiveTextColor: Color = AquaBlue,
-    initialSelectedItemIndex: Int = 0
+    initialSelectedItemIndex: Int = 0,
+    navigateToMainScreen: () -> Unit,
+    navigateToProfileScreen: () -> Unit,
+    navigateToTaskScreen: () -> Unit
 ) {
     var selectedItemIndex by remember {
         mutableStateOf(initialSelectedItemIndex)
@@ -110,7 +125,8 @@ fun BottomMenu(
                 isSelected = index == selectedItemIndex,
                 activeHighlightColor = activeHighlightColor,
                 activeTextColor = activeTextColor,
-                inactiveTextColor = inactiveTextColor
+                inactiveTextColor = inactiveTextColor,
+                navigate = if (index == 2) navigateToProfileScreen else if (index == 1) navigateToTaskScreen else if (index == 0) navigateToMainScreen else {{}}
             ) {
                 selectedItemIndex = index
             }
@@ -125,6 +141,7 @@ fun BottomMenuItem(
     activeHighlightColor: Color = ButtonBlue,
     activeTextColor: Color = Color.White,
     inactiveTextColor: Color = AquaBlue,
+    navigate: () -> Unit,
     onItemClick: () -> Unit
 ) {
     Column(
@@ -132,6 +149,7 @@ fun BottomMenuItem(
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.clickable {
             onItemClick()
+            navigate()
         }
     ) {
         Box(
@@ -157,7 +175,7 @@ fun BottomMenuItem(
 
 @Composable
 fun GreetingSection(
-    name: String = ""
+    employee: List<EmployeeApi>
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -166,19 +184,26 @@ fun GreetingSection(
             .fillMaxWidth()
             .padding(15.dp)
     ) {
-        Column(
+        LazyColumn(
             verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Good morning, $name",
-                style = MaterialTheme.typography.h6,
-                color = Color.White
-            )
-            Text(
-                text = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
-                style = MaterialTheme.typography.body2,
-                color = Color.White
-            )
+            items(
+                items = employee,
+                key = { employee ->
+                    employee.id
+                }) { employee ->
+                Text(
+                    text = "Good morning, ${employee.first_name}",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White
+                )
+                Text(
+                    text = LocalDateTime.now()
+                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
+                    style = MaterialTheme.typography.body2,
+                    color = Color.White
+                )
+            }
         }
         Icon(
             painter = painterResource(id = R.drawable.ic_search),
@@ -221,8 +246,7 @@ fun ChipSection(
 @Composable
 fun CurrentMeditation(
     color: Color = LightRed,
-    enterprise: String,
-    localization: String
+    enterprise: List<EnterpriseApi>,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -234,16 +258,22 @@ fun CurrentMeditation(
             .padding(horizontal = 15.dp, vertical = 20.dp)
             .fillMaxWidth()
     ) {
-        Column {
-            Text(
-                text = "Enterprise: $enterprise",
-                style = MaterialTheme.typography.h6
-            )
-            Text(
-                text = "Localization: $localization",
-                style = MaterialTheme.typography.body2,
-                color = TextWhite
-            )
+        LazyColumn {
+            items(
+                items = enterprise,
+                key = { enterprise ->
+                    enterprise.id
+                }) { enterprise ->
+                Text(
+                    text = "Enterprise: ${enterprise.name}",
+                    style = MaterialTheme.typography.h6
+                )
+                Text(
+                    text = "Localization: ${enterprise.localization}",
+                    style = MaterialTheme.typography.body2,
+                    color = TextWhite
+                )
+            }
         }
         Box(
             contentAlignment = Alignment.Center,
@@ -371,7 +401,7 @@ fun FeatureItem(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .clickable {
-                        // Handle the click
+                        feature.onClick()
                     }
                     .align(Alignment.BottomEnd)
                     .clip(RoundedCornerShape(10.dp))

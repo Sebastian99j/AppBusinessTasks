@@ -36,4 +36,8 @@ class NetworkRepository
     override suspend fun validateUser(user: User): ResponseApi {
         return networkService.authorization(user = user, token = token)
     }
+
+    override suspend fun deleteTask(id: Long) {
+        networkService.deleteTask(id.toString())
+    }
 }

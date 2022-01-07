@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "304665173583",
+    "project_id": "business-tasks-f2aa9",
+    "storage_bucket": "business-tasks-f2aa9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304665173583:android:9b48487f95c144e6b4943a",
+        "android_client_info": {
+          "package_name": "com.appbusinesstasks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304665173583-koiqoa1mamflsmgh86osqcokdbu2ardt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgaWPlMbeUKeVpOzlK9AOl2tWjaPBtyfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304665173583-koiqoa1mamflsmgh86osqcokdbu2ardt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
