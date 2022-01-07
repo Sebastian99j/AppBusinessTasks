@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class EnterpriseApi(
     @SerializedName("id")
     var id: Long,
-    @SerializedName("user")
-    var user: UserApi,
     @SerializedName("name")
     var name: String,
     @SerializedName("description")

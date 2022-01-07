@@ -17,6 +17,7 @@ class UserRepository
     }
 
     suspend fun addUser(user: User){
+        userDao.deleteAllUsers()
         userDao.addUser(user = user)
     }
 

@@ -21,13 +21,13 @@ import com.appbusinesstasks.utils.SearchAppBarState
 fun TaskScreen(
     navigateToDetailTaskScreen: (Int) -> Unit,
     navigateToAddTaskScreen: () -> Unit,
-    sharedViewModel: SharedViewModel,
+    sharedViewModel: SharedViewModel
 ){
     LaunchedEffect(key1 = true){
         sharedViewModel.loadData()
     }
 
-    val listOfTasks = sharedViewModel.allTaskApi.collectAsState()
+    val listOfTasks = sharedViewModel.userTask.collectAsState()
     
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
