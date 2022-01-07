@@ -95,6 +95,12 @@ class SharedViewModel
         }
     }
 
+    fun addTask(taskApi: TaskApi){
+        viewModelScope.launch {
+            networkRepository.addTask(taskApi = taskApi)
+        }
+    }
+
     fun deleteTask(id: Long){
         viewModelScope.launch {
             networkRepository.deleteTask(id)

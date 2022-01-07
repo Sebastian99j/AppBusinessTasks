@@ -132,7 +132,7 @@ fun DetailTaskScreen(
         ) {
             Text(text = "Delete task", modifier = Modifier
                 .align(Alignment.Center)
-                .clickable { sharedViewModel.deleteTask(taskApi.id) })
+                .clickable { sharedViewModel.deleteTask(taskApi.id!!) })
         }
         BottomMenu(
             items = listOf(

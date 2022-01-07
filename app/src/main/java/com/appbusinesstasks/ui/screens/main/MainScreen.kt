@@ -38,6 +38,7 @@ import java.time.format.DateTimeFormatter
 fun MainScreen(
     navigateToProfileScreen: () -> Unit,
     navigateToTaskScreen: () -> Unit,
+    navigateToHelpScreen: () -> Unit,
     sharedViewModel: SharedViewModel
 ) {
     LaunchedEffect(key1 = true){
@@ -59,12 +60,12 @@ fun MainScreen(
             FeatureSection(
                 features = listOf(
                     Feature(
-                        title = "Home",
-                        R.drawable.ic_home,
+                        title = "Task",
+                        R.drawable.ic_task,
                         BlueViolet1,
                         BlueViolet2,
                         BlueViolet3,
-                        {}
+                        navigateToTaskScreen
                     ),
                     Feature(
                         title = "Profile",
@@ -80,7 +81,7 @@ fun MainScreen(
                         OrangeYellow1,
                         OrangeYellow2,
                         OrangeYellow3,
-                        navigateToTaskScreen
+                        navigateToHelpScreen
                     )
                 )
             )

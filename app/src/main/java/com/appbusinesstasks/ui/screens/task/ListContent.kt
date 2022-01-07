@@ -46,7 +46,7 @@ fun DisplayTasks(
         items(
             items = listOfTasks,
             key = { task ->
-                task.id
+                task.id!!
             }
         ){ task ->
             TaskItem(
@@ -69,7 +69,7 @@ fun TaskItem(
         shape = RectangleShape,
         elevation = TASK_ITEM_ELEVATION,
         onClick = {
-            navigateToTaskDetailScreen(taskApi.id.toInt())
+            navigateToTaskDetailScreen(taskApi.id!!.toInt())
         })
     {
         Column(modifier = Modifier

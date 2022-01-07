@@ -20,6 +20,7 @@ import com.appbusinesstasks.utils.SearchAppBarState
 @Composable
 fun TaskScreen(
     navigateToDetailTaskScreen: (Int) -> Unit,
+    navigateToAddTaskScreen: () -> Unit,
     sharedViewModel: SharedViewModel,
 ){
     LaunchedEffect(key1 = true){
@@ -30,7 +31,6 @@ fun TaskScreen(
     
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
-    val scaffoldState = rememberScaffoldState()
 
     Scaffold(
         modifier = Modifier.background(Color.Blue),
@@ -48,18 +48,18 @@ fun TaskScreen(
             )
         },
         floatingActionButton = {
-            ListFab(onFabClick = navigateToDetailTaskScreen)
+            ListFab(onFabClick = navigateToAddTaskScreen)
         }
     )
 }
 
 @Composable
 fun ListFab(
-    onFabClick: (Int) -> Unit
+    onFabClick: () -> Unit
 ){
     FloatingActionButton(
         onClick = {
-            onFabClick(-1)
+            onFabClick()
         },
         backgroundColor = MaterialTheme.colors.fabBackgroundColor
     ) {

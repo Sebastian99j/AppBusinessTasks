@@ -38,6 +38,10 @@ class NetworkRepository
     }
 
     override suspend fun deleteTask(id: Long) {
-        networkService.deleteTask(id.toString())
+        networkService.deleteTask(id = id.toString(), token = token)
+    }
+
+    override suspend fun addTask(taskApi: TaskApi) {
+        networkService.addTask(taskApi = taskApi, token = token)
     }
 }

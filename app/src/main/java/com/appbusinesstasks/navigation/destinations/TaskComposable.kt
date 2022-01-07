@@ -12,11 +12,16 @@ import com.google.accompanist.navigation.animation.composable
 @ExperimentalAnimationApi
 fun NavGraphBuilder.taskComposable(
     navigateToTaskDetailScreen: (Int) -> Unit,
+    navigateToAddTaskScreen: () -> Unit,
     sharedViewModel: SharedViewModel
 ){
     composable(
         route = Constants.TASK_SCREEN
     ){
-       TaskScreen(navigateToDetailTaskScreen = navigateToTaskDetailScreen, sharedViewModel = sharedViewModel)
+       TaskScreen(
+           navigateToDetailTaskScreen = navigateToTaskDetailScreen,
+           sharedViewModel = sharedViewModel,
+           navigateToAddTaskScreen = navigateToAddTaskScreen
+       )
     }
 }

@@ -13,6 +13,7 @@ import com.appbusinesstasks.utils.Constants.MAIN_SCREEN
 fun NavGraphBuilder.mainComposable(
     navigateToProfileScreen: () -> Unit,
     navigateToTaskScreen: () -> Unit,
+    navigateToHelpScreen: () -> Unit,
     sharedViewModel: SharedViewModel
 ){
     composable(
@@ -21,6 +22,7 @@ fun NavGraphBuilder.mainComposable(
         MainScreen(
             navigateToProfileScreen = navigateToProfileScreen,
             navigateToTaskScreen = navigateToTaskScreen,
+            navigateToHelpScreen = navigateToHelpScreen,
             sharedViewModel = sharedViewModel
         )
     }

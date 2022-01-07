@@ -10,6 +10,8 @@ object Constants {
     const val MAIN_SCREEN = "main"
     const val TASK_SCREEN = "task"
     const val PROFILE_SCREEN = "profile"
+    const val ADD_TASK_SCREEN = "addTask"
+    const val HELP_SCREEN = "help"
     const val TASK_DETAIL_SCREEN = "taskDetail/{task_detail}"
 
     const val TASK_DETAIL_ARGUMENT = "task_detail"
