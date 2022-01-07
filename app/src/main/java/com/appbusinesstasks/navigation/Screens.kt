@@ -41,6 +41,11 @@ class Screens(navController: NavHostController) {
             popUpTo(MAIN_SCREEN){ inclusive = true }
         }
     }
+    val toProfile: () -> Unit = {
+        navController.navigate(route = PROFILE_SCREEN){
+            popUpTo(MAIN_SCREEN){ inclusive = true }
+        }
+    }
     val toAddTask: () -> Unit = {
         navController.navigate(route = ADD_TASK_SCREEN){
             popUpTo(TASK_SCREEN){ inclusive = true }

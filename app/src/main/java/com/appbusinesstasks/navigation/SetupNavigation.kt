@@ -62,5 +62,10 @@ fun SetupNavigation(
             sharedViewModel = sharedViewModel,
             navigateToTaskScreen = screen.toTask
         )
+        helpComposable(
+            navigateToProfileScreen = screen.toProfile,
+            navigateToTaskScreen = screen.toTask,
+            navigateToMainScreen = screen.toMain
+        )
     }
 }
