@@ -50,10 +50,12 @@ fun ListAppBar(
             SearchAppBar(
                 text = searchTextState,
                 onTextChange = { newText ->
-                    sharedViewModel.searchTextState.value = newText },
+                    sharedViewModel.searchTextState.value = newText
+                    sharedViewModel.updateListOfTasks(newText)},
                 onCloseClicked = {
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.CLOSED
                     sharedViewModel.searchTextState.value = ""
+                    sharedViewModel.reloadListOfTask()
                 },
                 onSearchClicked = {
 

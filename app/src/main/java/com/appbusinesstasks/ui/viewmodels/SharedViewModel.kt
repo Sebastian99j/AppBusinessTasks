@@ -36,6 +36,7 @@ class SharedViewModel
     val title: MutableState<String> = mutableStateOf("")
     val description: MutableState<String> = mutableStateOf("")
     val priority: MutableState<Priority> = mutableStateOf(Priority.LOW)
+    var listOfTask: List<TaskApi> = emptyList()
 
     val searchAppBarState: MutableState<SearchAppBarState> =
         mutableStateOf(SearchAppBarState.CLOSED)
@@ -79,6 +80,7 @@ class SharedViewModel
 
                 val result3 = networkRepository.getTasks()
                 _allTaskApi.value = result3
+                listOfTask = result3
             }
             catch (e: Exception){e.printStackTrace()}
         }
@@ -105,6 +107,15 @@ class SharedViewModel
         viewModelScope.launch {
             networkRepository.deleteTask(id)
         }
+    }
+
+    fun updateListOfTasks(name: String){
+        val newList = listOfTask.filter { it.name == name }
+        _allTaskApi.value = newList
+    }
+
+    fun reloadListOfTask(){
+        _allTaskApi.value = listOfTask
     }
 
     fun getAllUsers(){
