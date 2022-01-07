@@ -97,7 +97,7 @@ fun TaskItem(
                             .height(PRIORITY_INDICATOR_SIZE)
                     ){
                         drawCircle(
-                            color = if (taskApi.status == "LOW") Color.Red else if (taskApi.status == "MEDIUM") Color.Yellow else Color.Green
+                            color = if (taskApi.priority == "HIGH") Color.Red else if (taskApi.priority == "MEDIUM") Color.Yellow else Color.Green
                         ) 
                     }
                 }

@@ -13,6 +13,8 @@ data class TaskApi(
     var start_date: String,
     @SerializedName("end_date")
     var end_date: String,
+    @SerializedName("priority")
+    var priority: String,
     @SerializedName("status")
     var status: String,
     @SerializedName("open")

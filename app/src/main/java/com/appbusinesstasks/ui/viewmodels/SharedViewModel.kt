@@ -66,7 +66,8 @@ class SharedViewModel
     private val _enterpriseApi = MutableStateFlow<List<EnterpriseApi>>(emptyList())
     val enterpriseApi: StateFlow<List<EnterpriseApi>> = _enterpriseApi
 
-    private val _selectedTask = MutableStateFlow<TaskApi>(TaskApi(1,"","","","","",""))
+    private val _selectedTask = MutableStateFlow<TaskApi>(TaskApi(1,"","",
+        "","","","", ""))
     val selectedTask: StateFlow<TaskApi> = _selectedTask
 
     fun loadData(){
