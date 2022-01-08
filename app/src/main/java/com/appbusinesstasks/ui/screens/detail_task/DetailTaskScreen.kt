@@ -31,7 +31,8 @@ fun DetailTaskScreen(
     taskApi: TaskApi,
     navigateToProfileScreen: () -> Unit,
     navigateToTaskScreen: () -> Unit,
-    navigateToMainScreen: () -> Unit
+    navigateToMainScreen: () -> Unit,
+    navigateToTaskContentScreen: () -> Unit
 ){
     Box(
         modifier = Modifier
@@ -120,6 +121,19 @@ fun DetailTaskScreen(
                     )
                 }
             }
+        }
+        Box(
+            modifier = Modifier
+                .padding(bottom = 200.dp)
+                .height(50.dp)
+                .width(150.dp)
+                .clip(RoundedCornerShape(30.dp))
+                .align(Alignment.BottomCenter)
+                .background(AquaBlue)
+        ) {
+            Text(text = "Detail of task", modifier = Modifier
+                .align(Alignment.Center)
+                .clickable { navigateToTaskContentScreen() })
         }
         Box(
             modifier = Modifier

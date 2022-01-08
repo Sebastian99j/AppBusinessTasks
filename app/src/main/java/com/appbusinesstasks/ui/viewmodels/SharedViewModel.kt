@@ -55,7 +55,7 @@ class SharedViewModel
     val enterpriseApi: StateFlow<List<EnterpriseApi>> = _enterpriseApi
 
     private val _selectedTask = MutableStateFlow<TaskApi>(TaskApi(1,"","",
-        "","","","", ""))
+        "","","","", "", 0, emptyList()))
     val selectedTask: StateFlow<TaskApi> = _selectedTask
 
     fun loadData(){
@@ -116,6 +116,23 @@ class SharedViewModel
 
     fun reloadListOfTask(){
         _userTask.value = listOfTask
+    }
+
+    fun sendComment(completion: String, comment: String){
+        val task = selectedTask.value
+        val finalCompletion = task.completion!! + completion.toInt()
+        task.completion = finalCompletion
+
+        val listOfComments = mutableListOf<String>()
+        task.comments?.forEach {
+            listOfComments.add(it)
+        }
+        listOfComments.add(comment)
+        task.comments = listOfComments
+
+        viewModelScope.launch {
+            networkRepository.updateTask(taskApi = task)
+        }
     }
 
     fun getAllUsers(){

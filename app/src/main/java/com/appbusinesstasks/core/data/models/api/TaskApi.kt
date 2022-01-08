@@ -18,5 +18,9 @@ data class TaskApi(
     @SerializedName("status")
     var status: String,
     @SerializedName("open")
-    var open: String
+    var open: String,
+    @SerializedName("completion")
+    var completion: Int?,
+    @SerializedName("comments")
+    var comments: List<String>?
 )

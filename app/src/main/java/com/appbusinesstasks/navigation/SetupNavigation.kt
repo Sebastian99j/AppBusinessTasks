@@ -50,13 +50,17 @@ fun SetupNavigation(
         taskComposable(
             navigateToTaskDetailScreen = screen.task,
             sharedViewModel = sharedViewModel,
-            navigateToAddTaskScreen = screen.toAddTask
+            navigateToAddTaskScreen = screen.toAddTask,
+            navigateToProfileScreen = screen.toProfile,
+            navigateToTaskScreen = screen.toTask,
+            navigateToMainScreen = screen.toMain,
         )
         taskDetailComposable(
             sharedViewModel = sharedViewModel,
             navigateToProfileScreen = screen.main,
             navigateToTaskScreen = screen.toTask,
-            navigateToMainScreen = screen.login
+            navigateToMainScreen = screen.login,
+            navigateToTaskContentScreen = screen.toTaskContent
         )
         addTaskComposable(
             sharedViewModel = sharedViewModel,
@@ -66,6 +70,13 @@ fun SetupNavigation(
             navigateToProfileScreen = screen.toProfile,
             navigateToTaskScreen = screen.toTask,
             navigateToMainScreen = screen.toMain
+        )
+        contentTaskComposable(
+            navigateToProfileScreen = screen.main,
+            navigateToTaskScreen = screen.toTask,
+            navigateToMainScreen = screen.login,
+            navigateToTaskDetailScreen = screen.task,
+            sharedViewModel = sharedViewModel
         )
     }
 }

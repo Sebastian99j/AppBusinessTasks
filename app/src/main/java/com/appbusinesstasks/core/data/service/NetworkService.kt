@@ -40,6 +40,13 @@ interface NetworkService {
         @Body taskApi: TaskApi
     )
 
+    @PUT("/api/tasks/put/{id}")
+    suspend fun updateTask(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body taskApi: TaskApi
+    )
+
     @DELETE("/api/tasks/delete/{id}")
     suspend fun deleteTask( @Header("Authorization") token: String, @Path("id") id: String)
 }

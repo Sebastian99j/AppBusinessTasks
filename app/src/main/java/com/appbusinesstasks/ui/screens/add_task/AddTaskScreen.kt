@@ -223,7 +223,9 @@ fun AddTaskScreen(
                                 end_date = end_date,
                                 priority = priority,
                                 open = open,
-                                status = status
+                                status = status,
+                                comments = emptyList(),
+                                completion = null
                             )
                         )
                         navigateToTaskScreen()

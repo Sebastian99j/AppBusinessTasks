@@ -44,4 +44,8 @@ class NetworkRepository
     override suspend fun addTask(taskApi: TaskApi) {
         networkService.addTask(taskApi = taskApi, token = token)
     }
+
+    override suspend fun updateTask(taskApi: TaskApi) {
+        networkService.updateTask(token = token, taskApi = taskApi, id = taskApi.id.toString())
+    }
 }

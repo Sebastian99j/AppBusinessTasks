@@ -18,7 +18,8 @@ fun NavGraphBuilder.taskDetailComposable(
     sharedViewModel: SharedViewModel,
     navigateToProfileScreen: () -> Unit,
     navigateToTaskScreen: () -> Unit,
-    navigateToMainScreen: () -> Unit
+    navigateToMainScreen: () -> Unit,
+    navigateToTaskContentScreen: () -> Unit
 ){
     composable(
         route = Constants.TASK_DETAIL_SCREEN,
@@ -39,6 +40,7 @@ fun NavGraphBuilder.taskDetailComposable(
             navigateToProfileScreen = navigateToProfileScreen,
             navigateToTaskScreen = navigateToTaskScreen,
             navigateToMainScreen = navigateToMainScreen,
+            navigateToTaskContentScreen = navigateToTaskContentScreen,
             sharedViewModel = sharedViewModel
         )
     }

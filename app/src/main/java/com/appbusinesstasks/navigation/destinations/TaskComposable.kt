@@ -11,6 +11,9 @@ import com.google.accompanist.navigation.animation.composable
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.taskComposable(
+    navigateToProfileScreen: () -> Unit,
+    navigateToTaskScreen: () -> Unit,
+    navigateToMainScreen: () -> Unit,
     navigateToTaskDetailScreen: (Int) -> Unit,
     navigateToAddTaskScreen: () -> Unit,
     sharedViewModel: SharedViewModel
@@ -21,7 +24,10 @@ fun NavGraphBuilder.taskComposable(
        TaskScreen(
            navigateToDetailTaskScreen = navigateToTaskDetailScreen,
            sharedViewModel = sharedViewModel,
-           navigateToAddTaskScreen = navigateToAddTaskScreen
+           navigateToAddTaskScreen = navigateToAddTaskScreen,
+           navigateToProfileScreen = navigateToProfileScreen,
+           navigateToTaskScreen = navigateToTaskScreen,
+           navigateToMainScreen = navigateToMainScreen
        )
     }
 }

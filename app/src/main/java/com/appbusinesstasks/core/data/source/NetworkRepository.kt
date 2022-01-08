@@ -15,4 +15,5 @@ interface NetworkRepositorySource {
 
     suspend fun deleteTask(id: Long)
     suspend fun addTask(taskApi: TaskApi)
+    suspend fun updateTask(taskApi: TaskApi)
 }

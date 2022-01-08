@@ -7,6 +7,7 @@ import com.appbusinesstasks.utils.Constants.LOGIN_SCREEN
 import com.appbusinesstasks.utils.Constants.MAIN_SCREEN
 import com.appbusinesstasks.utils.Constants.PROFILE_SCREEN
 import com.appbusinesstasks.utils.Constants.SPLASH_SCREEN
+import com.appbusinesstasks.utils.Constants.TASK_CONTENT_SCREEN
 import com.appbusinesstasks.utils.Constants.TASK_DETAIL_SCREEN
 import com.appbusinesstasks.utils.Constants.TASK_SCREEN
 
@@ -49,6 +50,11 @@ class Screens(navController: NavHostController) {
     val toAddTask: () -> Unit = {
         navController.navigate(route = ADD_TASK_SCREEN){
             popUpTo(TASK_SCREEN){ inclusive = true }
+        }
+    }
+    val toTaskContent: () -> Unit = {
+        navController.navigate(route = TASK_CONTENT_SCREEN){
+            popUpTo(TASK_DETAIL_SCREEN){ inclusive = true }
         }
     }
     val task: (Int) -> Unit = { taskId ->
