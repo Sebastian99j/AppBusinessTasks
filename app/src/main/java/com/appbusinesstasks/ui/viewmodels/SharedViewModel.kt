@@ -99,7 +99,7 @@ class SharedViewModel
 
     fun addTask(taskApi: TaskApi){
         viewModelScope.launch {
-            networkRepository.addTask(taskApi = taskApi)
+            networkRepository.addTask(taskApi = taskApi, userId = employeeApi.value[0].user.id.toString())
         }
     }
 
@@ -120,7 +120,13 @@ class SharedViewModel
 
     fun sendComment(completion: String, comment: String){
         val task = selectedTask.value
-        val finalCompletion = task.completion!! + completion.toInt()
+
+        val finalCompletion = try {
+            task.completion!! + completion.toInt()
+        } catch (e: Exception){
+            completion.toInt()
+        }
+
         task.completion = finalCompletion
 
         val listOfComments = mutableListOf<String>()

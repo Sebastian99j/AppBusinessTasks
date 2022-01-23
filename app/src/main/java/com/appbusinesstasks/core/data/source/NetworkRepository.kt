@@ -14,6 +14,6 @@ interface NetworkRepositorySource {
     suspend fun validateUser(user: User): ResponseApi
 
     suspend fun deleteTask(id: Long)
-    suspend fun addTask(taskApi: TaskApi)
+    suspend fun addTask(taskApi: TaskApi, userId: String)
     suspend fun updateTask(taskApi: TaskApi)
 }

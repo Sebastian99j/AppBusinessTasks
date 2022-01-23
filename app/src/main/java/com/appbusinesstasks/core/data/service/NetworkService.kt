@@ -34,9 +34,10 @@ interface NetworkService {
         @Body user: User
     ): ResponseApi
 
-    @POST("/api/tasks")
+    @POST("/api/tasks/save/{id}")
     suspend fun addTask(
         @Header("Authorization") token: String,
+        @Path("id") id: String,
         @Body taskApi: TaskApi
     )
 
